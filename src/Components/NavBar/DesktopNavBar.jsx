@@ -83,7 +83,7 @@ function ListItem({ className, title, children, href, ...props }) {
 
 function DesktopNavBar() {
     return (
-        <nav className="hidden lg:flex items-center justify-between w-full px-8 py-4">
+        <nav className="hidden lg:flex items-center justify-between w-full h-12 px-8 py-4">
             {/* Logo */}
             <Link to="/" className="flex items-center">
                 <img
