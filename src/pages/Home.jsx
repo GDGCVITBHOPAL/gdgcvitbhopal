@@ -1,5 +1,5 @@
 import React from "react";
-import HeroSection from "@/Components/HeroText/HeroSectionContainer.jsx";
+import HeroSection from "@/Components/HeroSection/HeroSectionContainer.jsx";
 
 function Home() {
     return (
