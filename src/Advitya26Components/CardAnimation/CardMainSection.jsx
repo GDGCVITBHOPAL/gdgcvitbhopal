@@ -1,4 +1,16 @@
-import { useRef, useEffect, useState, Children } from "react";
+import {
+    useRef,
+    useEffect,
+    useState,
+    Children,
+    cloneElement,
+    isValidElement,
+} from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
 
 // Size presets
 const SIZE_CLASSES = {
@@ -10,11 +22,11 @@ const SIZE_CLASSES = {
 };
 
 const SIZE_VALUES = {
-    sm: 70,
-    md: 80,
-    lg: 85,
-    xl: 90,
-    "2xl": 95,
+    sm: 60,
+    md: 70,
+    lg: 80,
+    xl: 85,
+    "2xl": 90,
 };
 
 const DEFAULT_GAP_VW = 5;
@@ -23,196 +35,264 @@ const DEFAULT_GAP_VW = 5;
 const getCardWidthVw = (cardSize) => SIZE_VALUES[cardSize] || SIZE_VALUES.lg;
 const getInitialOffset = (cardWidthVw) => (100 - cardWidthVw) / 2;
 
-const getScrollDistance = (cardCount, cardWidthVw, gapVw = DEFAULT_GAP_VW) => {
-    if (cardCount <= 1) return 0;
-    return (cardCount - 1) * (cardWidthVw + gapVw);
-};
-
-const calculateCardScale = (
-    cardRect,
-    viewportWidth,
-    minScale = 0.75,
-    maxScale = 1,
-) => {
-    const viewportCenter = viewportWidth / 2;
-    const cardCenter = cardRect.left + cardRect.width / 2;
-    const distanceFromCenter = Math.abs(viewportCenter - cardCenter);
-    const maxDistance = viewportWidth / 2 + cardRect.width / 2;
-
-    const proximity = 1 - Math.min(1, distanceFromCenter / maxDistance);
-    return minScale + proximity * (maxScale - minScale);
-};
-
-const calculateScrollProgress = (
-    containerRect,
-    containerHeight,
-    viewportHeight,
-) => {
-    const scrollableDistance = containerHeight - viewportHeight;
-    if (scrollableDistance <= 0) return 0;
-    return Math.max(0, Math.min(1, -containerRect.top / scrollableDistance));
-};
-
-// CardMainSection component
+// CardMainSection component using GSAP ScrollTrigger (Mobile)
 export default function CardMainSection({
     children,
-    bgColor = "#3B28CC",
+    bgColor = "transparent",
     cardSize = "lg",
-    direction = "horizontal",
-    scrollSlowdown = 2.5, // Higher = slower horizontal movement (requires more vertical scroll)
+    scaleLastCard = false,
+    lastCardInitialScale = 0.15,
 }) {
-    const isHorizontal = direction === "horizontal";
     const containerRef = useRef(null);
-    const stickyRef = useRef(null);
+    const trackRef = useRef(null);
+    const sectionRef = useRef(null);
     const cardRefs = useRef([]);
-    const [scales, setScales] = useState({});
-    const [translateX, setTranslateX] = useState(0);
+    const lastCardInnerRef = useRef(null);
+    const [contentOpacity, setContentOpacity] = useState(0);
+    const [dynamicHeight, setDynamicHeight] = useState("400vh"); // Initial estimate
     const childArray = Children.toArray(children);
 
     const cardWidthVw = getCardWidthVw(cardSize);
+    const cardHeightVh = SIZE_VALUES[cardSize] || 80;
     const gapVw = DEFAULT_GAP_VW;
     const initialOffset = getInitialOffset(cardWidthVw);
-    const scrollDistance = getScrollDistance(
+
+    // Calculate full screen scale
+    const getFullScreenScale = () => {
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        const cardWidth = (cardWidthVw / 100) * viewportWidth;
+        const cardHeight = (cardHeightVh / 100) * viewportHeight;
+        const scaleForWidth = viewportWidth / cardWidth;
+        const scaleForHeight = viewportHeight / cardHeight;
+        return Math.max(scaleForWidth, scaleForHeight);
+    };
+
+    useEffect(() => {
+        const container = containerRef.current;
+        const track = trackRef.current;
+        const section = sectionRef.current;
+        const lastCard = cardRefs.current[childArray.length - 1];
+        const lastCardInner = lastCardInnerRef.current;
+
+        if (!container || !track || !section) return;
+
+        // Create context for cleanup
+        const ctx = gsap.context(() => {
+            // Get the last card's position to calculate scroll to center it
+            const lastCardEl = cardRefs.current[childArray.length - 1];
+            if (!lastCardEl) return;
+
+            // Ensure all cards are at full scale for accurate measurement
+            cardRefs.current.forEach((card) => {
+                if (card) gsap.set(card, { scale: 1 });
+            });
+
+            // Force layout recalculation
+            track.offsetHeight;
+
+            // Calculate how far to scroll horizontally to CENTER the last card
+            const lastCardRect = lastCardEl.getBoundingClientRect();
+            const trackRect = track.getBoundingClientRect();
+            const viewportCenter = window.innerWidth / 2;
+
+            // Position of last card center relative to track start
+            const lastCardCenterInTrack = (lastCardRect.left - trackRect.left) + (lastCardRect.width / 2);
+
+            // Scroll needed to bring last card center to viewport center
+            const scrollToCenter = lastCardCenterInTrack - viewportCenter;
+            const scrollWidth = Math.max(0, scrollToCenter);
+
+            const scaleDistance = scaleLastCard ? window.innerHeight * 1.5 : 0;
+            const totalDistance = scrollWidth + scaleDistance;
+
+            // Update container height based on actual scroll width
+            setDynamicHeight(`${window.innerHeight + totalDistance}px`);
+
+            if (totalDistance <= 0) return;
+
+            // NOW set initial states (after measurement)
+            gsap.set(track, { x: 0 });
+            cardRefs.current.forEach((card, index) => {
+                if (!card) return;
+                const isLast = index === childArray.length - 1;
+                if (scaleLastCard && isLast) {
+                    gsap.set(card, { scale: lastCardInitialScale });
+                } else {
+                    gsap.set(card, { scale: 1 });
+                }
+            });
+            if (lastCardInner) {
+                gsap.set(lastCardInner, { borderRadius: "24px" });
+            }
+
+            // Create main timeline with TWO phases
+            const mainTL = gsap.timeline({ paused: true });
+
+            // Calculate durations based on scroll distances
+            const phase1Duration = scrollWidth / totalDistance; // Horizontal scroll phase
+            const phase2Duration = scaleDistance / totalDistance; // Scale phase
+
+            // PHASE 1: Horizontal scroll until last card is CENTERED
+            mainTL.to(
+                track,
+                {
+                    x: -scrollWidth,
+                    ease: "none",
+                    duration: phase1Duration,
+                },
+                0,
+            );
+
+            // PHASE 2: Scale last card from small to full screen (after it's centered)
+            if (scaleLastCard && lastCard) {
+                mainTL.to(
+                    lastCard,
+                    {
+                        scale: getFullScreenScale(),
+                        ease: "power2.out",
+                        duration: phase2Duration,
+                    },
+                    phase1Duration,
+                ); // Start after phase 1
+            }
+
+            // Border radius animation during phase 2
+            if (scaleLastCard && lastCardInner) {
+                mainTL.to(
+                    lastCardInner,
+                    {
+                        borderRadius: "0px",
+                        ease: "power2.out",
+                        duration: phase2Duration,
+                    },
+                    phase1Duration,
+                ); // Start after phase 1
+            }
+
+            // Single ScrollTrigger with proper pinning
+            ScrollTrigger.create({
+                trigger: container,
+                start: "top top",
+                end: () => `+=${totalDistance}`,
+                pin: section,
+                pinSpacing: true,
+                scrub: 0.8,
+                animation: mainTL,
+                invalidateOnRefresh: true,
+                onUpdate: (self) => {
+                    const progress = self.progress;
+
+                    // Content opacity - starts revealing during phase 2 (after card is centered)
+                    if (scaleLastCard) {
+                        const phase2Start = phase1Duration;
+                        if (progress >= phase2Start) {
+                            // In phase 2 - reveal content
+                            const phase2Progress =
+                                (progress - phase2Start) / phase2Duration;
+                            const opacityProgress = Math.min(
+                                1,
+                                phase2Progress * 2,
+                            );
+                            setContentOpacity(opacityProgress);
+                        } else {
+                            setContentOpacity(0);
+                        }
+                    }
+
+                    // Scale non-last cards based on position
+                    const vpCenter = window.innerWidth / 2;
+                    cardRefs.current.forEach((card, index) => {
+                        if (!card) return;
+                        const isLast = index === childArray.length - 1;
+
+                        if (!isLast) {
+                            const rect = card.getBoundingClientRect();
+                            const cardCenter = rect.left + rect.width / 2;
+                            const distance = Math.abs(vpCenter - cardCenter);
+                            const maxDistance =
+                                window.innerWidth / 2 + rect.width / 2;
+                            const proximity =
+                                1 - Math.min(1, distance / maxDistance);
+                            const scale = 0.8 + proximity * 0.2;
+                            gsap.set(card, { scale: scale });
+                        }
+                    });
+                },
+            });
+        }, container);
+
+        // Handle resize
+        const handleResize = () => {
+            ScrollTrigger.refresh();
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            ctx.revert();
+            window.removeEventListener("resize", handleResize);
+        };
+    }, [
         childArray.length,
         cardWidthVw,
-        gapVw,
-    );
-    const slowdown = Math.max(1, Number(scrollSlowdown) || 1);
+        cardHeightVh,
+        scaleLastCard,
+        lastCardInitialScale,
+    ]);
 
-    // Horizontal scroll effect based on vertical scroll position
-    useEffect(() => {
-        if (!isHorizontal) return;
-
-        const container = containerRef.current;
-        if (!container) return;
-
-        const handleScroll = () => {
-            const rect = container.getBoundingClientRect();
-            const progress = calculateScrollProgress(
-                rect,
-                container.offsetHeight,
-                window.innerHeight,
-            );
-            setTranslateX(progress * scrollDistance);
-        };
-
-        window.addEventListener("scroll", handleScroll, { passive: true });
-        handleScroll();
-
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, [childArray.length, scrollDistance, isHorizontal]);
-
-    // Scale cards based on distance from viewport center (horizontal mode)
-    useEffect(() => {
-        if (!isHorizontal) return;
-
-        const updateScales = () => {
-            const viewportWidth = window.innerWidth;
-            cardRefs.current.forEach((ref, index) => {
-                if (!ref) return;
-                const scale = calculateCardScale(
-                    ref.getBoundingClientRect(),
-                    viewportWidth,
-                );
-                setScales((prev) => ({ ...prev, [index]: scale }));
-            });
-        };
-
-        updateScales();
-        window.addEventListener("resize", updateScales);
-        return () => window.removeEventListener("resize", updateScales);
-    }, [translateX, childArray.length, isHorizontal]);
-
-    // Scale cards using IntersectionObserver (vertical mode)
-    useEffect(() => {
-        if (isHorizontal) return;
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    const index = entry.target.dataset.cardIndex;
-                    const scale = 0.75 + entry.intersectionRatio * 0.25;
-                    setScales((prev) => ({ ...prev, [index]: scale }));
-                });
-            },
-            {
-                root: null,
-                rootMargin: "-5% 0px -5% 0px",
-                threshold: Array.from({ length: 101 }, (_, i) => i / 100),
-            },
-        );
-
-        cardRefs.current.forEach((ref) => ref && observer.observe(ref));
-        return () => observer.disconnect();
-    }, [childArray.length, isHorizontal]);
-
-    const containerHeight = isHorizontal
-        ? `calc(100vh + ${scrollDistance * slowdown}vw)`
-        : "auto";
-
-    const cardStyle = (index) => ({
-        width: `${cardWidthVw}vw`,
-        transform: `scale(${scales[index] || 0.85})`,
-        transitionTimingFunction: "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-    });
-
-    // Vertical mode
-    if (!isHorizontal) {
-        return (
-            <section
-                ref={containerRef}
-                className="flex flex-col items-center py-[10vh] gap-[8vh]"
-                style={{ backgroundColor: bgColor }}
-            >
-                {childArray.map((child, index) => (
-                    <div
-                        key={index}
-                        ref={(el) => (cardRefs.current[index] = el)}
-                        data-card-index={index}
-                        className={`${SIZE_CLASSES[cardSize]} transition-transform duration-400 ease-out will-change-transform`}
-                        style={cardStyle(index)}
-                    >
-                        {child}
-                    </div>
-                ))}
-            </section>
-        );
-    }
-
-    // Horizontal mode
     return (
-        <div ref={containerRef} style={{ height: containerHeight }}>
+        <div
+            ref={containerRef}
+            style={{ height: dynamicHeight, position: "relative", zIndex: 2 }}
+        >
             <section
-                ref={stickyRef}
-                className="sticky top-0 h-screen flex items-center overflow-hidden"
+                ref={sectionRef}
+                className="h-screen flex items-center overflow-hidden"
                 style={{ backgroundColor: bgColor }}
             >
                 <div
-                    className="flex flex-row items-center"
+                    ref={trackRef}
+                    className="flex flex-row items-center will-change-transform"
                     style={{
                         gap: `${gapVw}vw`,
                         paddingLeft: `${initialOffset}vw`,
-                        transform: `translateX(-${translateX}vw)`,
-                        transition: "transform 0.1s ease-out",
+                        paddingRight: `${initialOffset}vw`,
                     }}
                 >
-                    {childArray.map((child, index) => (
-                        <div
-                            key={index}
-                            ref={(el) => (cardRefs.current[index] = el)}
-                            data-card-index={index}
-                            className={`${SIZE_CLASSES[cardSize]} shrink-0 transition-transform duration-300 ease-out will-change-transform`}
-                            style={cardStyle(index)}
-                        >
-                            {child}
-                        </div>
-                    ))}
-                    {/* Spacer for centering last card */}
-                    <div
-                        className="shrink-0"
-                        style={{ width: `${initialOffset}vw` }}
-                        aria-hidden="true"
-                    />
+                    {childArray.map((child, index) => {
+                        const isLastCard = index === childArray.length - 1;
+                        const renderedChild =
+                            scaleLastCard && isLastCard && isValidElement(child)
+                                ? cloneElement(child, { contentOpacity })
+                                : child;
+
+                        const isSecondToLast = index === childArray.length - 2;
+
+                        return (
+                            <div
+                                key={index}
+                                ref={(el) => (cardRefs.current[index] = el)}
+                                className={`${SIZE_CLASSES[cardSize]} shrink-0 will-change-transform`}
+                                style={{
+                                    width: isSecondToLast ? "auto" : `${cardWidthVw}vw`,
+                                    transformOrigin: "center center",
+                                    marginRight: isSecondToLast ? "20vw" : undefined, // Extra spacing after LoadingTextScroller
+                                }}
+                            >
+                                {scaleLastCard && isLastCard ? (
+                                    <div
+                                        ref={lastCardInnerRef}
+                                        className="w-full h-full overflow-hidden"
+                                        style={{ borderRadius: "24px" }}
+                                    >
+                                        {renderedChild}
+                                    </div>
+                                ) : (
+                                    child
+                                )}
+                            </div>
+                        );
+                    })}
                 </div>
             </section>
         </div>
