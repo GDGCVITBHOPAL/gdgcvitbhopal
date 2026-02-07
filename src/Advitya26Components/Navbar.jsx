@@ -10,7 +10,7 @@ const navLinks = [
   { href: '/community', label: 'Community', icon: Users, underlineColor: '#eab308' },
   { href: '/store', label: 'Store', icon: Store, underlineColor: '#22c55e' },
   { href: '/about', label: 'About', icon: Info, underlineColor: '#ef4444' },
-  { href: '#faq-section', label: 'FAQs', icon: HelpCircle, underlineColor: '#8b5cf6', isScroll: true },
+  { href: '/advitya/faqs', label: 'FAQs', icon: HelpCircle, underlineColor: '#8b5cf6' },
 ];
 
 export function GlobalNavbar({ showLogo = true }) {
@@ -53,17 +53,6 @@ export function GlobalNavbar({ showLogo = true }) {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-
-  const handleLinkClick = (e, link) => {
-    if (link.isScroll) {
-      e.preventDefault();
-      const element = document.querySelector(link.href);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        if (isMobile) setIsOpen(false);
-      }
-    }
-  };
 
   const handleToggle = () => {
     if (isMobile) {
@@ -141,7 +130,6 @@ export function GlobalNavbar({ showLogo = true }) {
                     <motion.li key={link.href} whileHover={{ y: -2 }} className="w-full lg:w-auto">
                       <Link
                         to={link.href}
-                        onClick={(e) => handleLinkClick(e, link)}
                         className="relative flex items-center gap-2 px-3 py-2 rounded-full hover:bg-black/10 transition-colors text-black text-sm group"
                       >
                         <Icon size={16} />
@@ -183,10 +171,7 @@ export function GlobalNavbar({ showLogo = true }) {
                     <motion.li key={link.href} whileTap={{ scale: 0.95 }}>
                       <Link
                         to={link.href}
-                        onClick={(e) => {
-                          handleLinkClick(e, link);
-                          if (!link.isScroll) setIsOpen(false);
-                        }}
+                        onClick={() => setIsOpen(false)}
                         className="relative flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-black/10 transition-colors text-black text-base"
                       >
                         <Icon size={20} />

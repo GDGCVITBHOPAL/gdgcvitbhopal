@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 // Import Google Sans alternative (Poppins is closest to Product Sans/Google Sans)
 const fontLink = document.createElement('link');
@@ -163,17 +163,52 @@ const FAQCard = ({ question, answer, iconColor }) => (
 
 export default function FAQ() {
   const [activeTab, setActiveTab] = useState('general');
+  const scrollContainerRef = useRef(null);
+  const generalRef = useRef(null);
+  const registrationRef = useRef(null);
+  const hackathonRef = useRef(null);
 
   const tabs = [
-    { id: 'general', label: 'GENERAL' },
-    { id: 'registration', label: 'REGISTRATION' },
-    { id: 'hackathon', label: 'HACKATHON' }
+    { id: 'general', label: 'GENERAL', ref: generalRef },
+    { id: 'registration', label: 'REGISTRATION', ref: registrationRef },
+    { id: 'hackathon', label: 'HACKATHON', ref: hackathonRef }
   ];
 
-  // Handle tab click to switch content
+  // Scroll to section when tab is clicked
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
+    const tabObj = tabs.find(t => t.id === tabId);
+    if (tabObj?.ref?.current) {
+      tabObj.ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
+
+  // IntersectionObserver to detect which section is in view
+  useEffect(() => {
+    const options = {
+      root: null, // Use viewport as root
+      rootMargin: '-40% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('data-section');
+          if (sectionId) {
+            setActiveTab(sectionId);
+          }
+        }
+      });
+    }, options);
+
+    // Observe all sections
+    if (generalRef.current) observer.observe(generalRef.current);
+    if (registrationRef.current) observer.observe(registrationRef.current);
+    if (hackathonRef.current) observer.observe(hackathonRef.current);
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="w-full min-h-screen bg-[#0a0a0a] relative" style={{ fontFamily: "'Poppins', sans-serif" }}>
@@ -189,9 +224,9 @@ export default function FAQ() {
         }}
       />
 
-      {/* Header with Grid Background */}
+      {/* Fixed Header with Grid Background */}
       <div 
-        className="relative z-20 px-6 md:px-28 py-12"
+        className="fixed top-0 left-0 right-0 z-20 px-6 md:px-28 py-12"
         style={{
           backgroundColor: '#0a0a0a',
           backgroundImage: `
@@ -225,35 +260,42 @@ export default function FAQ() {
         </div>
       </div>
 
-      {/* Content - Simple crossfade transition */}
-      <div className="relative z-10 px-6 md:px-28 py-12">
-        <div className="relative">
+      {/* Scrollable Content */}
+      <div 
+        ref={scrollContainerRef}
+        className="relative z-10 px-6 md:px-28 pt-48 pb-12"
+      >
+        {/* FAQ Sections - All visible, scroll triggers tab change */}
+        <div className="space-y-16">
           {/* General Section */}
-          {activeTab === 'general' && (
-            <div className="animate-fadeIn space-y-4">
+          <div ref={generalRef} data-section="general" className="scroll-mt-40">
+            <h2 className="text-white text-[32px] font-medium mb-6">General</h2>
+            <div className="space-y-4">
               {faqData.general.map((faq, index) => (
                 <FAQCard key={index} {...faq} />
               ))}
             </div>
-          )}
+          </div>
 
           {/* Registration Section */}
-          {activeTab === 'registration' && (
-            <div className="animate-fadeIn space-y-4">
+          <div ref={registrationRef} data-section="registration" className="scroll-mt-40">
+            <h2 className="text-white text-[32px] font-medium mb-6">Registration</h2>
+            <div className="space-y-4">
               {faqData.registration.map((faq, index) => (
                 <FAQCard key={index} {...faq} />
               ))}
             </div>
-          )}
+          </div>
 
           {/* Hackathon Section */}
-          {activeTab === 'hackathon' && (
-            <div className="animate-fadeIn space-y-4">
+          <div ref={hackathonRef} data-section="hackathon" className="scroll-mt-40">
+            <h2 className="text-white text-[32px] font-medium mb-6">Hackathon</h2>
+            <div className="space-y-4">
               {faqData.hackathon.map((faq, index) => (
                 <FAQCard key={index} {...faq} />
               ))}
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>
