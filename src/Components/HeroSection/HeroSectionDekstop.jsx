@@ -77,7 +77,7 @@ export default function HeroSectionDesktop() {
             }}
           >
             <span className="inline-flex items-baseline gap-3 lg:gap-4 whitespace-nowrap">
-              <span className="text-4xl lg:text-5xl xl:text-6xl font-extrabold text-[#4285F4]">
+              <span className="text-4xl lg:text-5xl xl:text-6xl font-extrabold [-webkit-text-stroke:1px_black] text-[#4285F4]">
                 we are
               </span>
               <span className="text-4xl lg:text-5xl xl:text-6xl font-black text-black">
