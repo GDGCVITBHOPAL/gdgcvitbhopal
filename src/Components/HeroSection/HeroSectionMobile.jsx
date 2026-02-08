@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { motion } from "motion/react";
 
-import building from "@/assets/VitVectorImage.svg";
+import building from "@/assets/VitBhopal.avif";
 import Cloud_Elem_1 from "@/assets/Cloud_Elem_1.svg";
 import Cloud_Elem_2 from "@/assets/Cloud_Elem_2.svg";
 import planet from "@/assets/Planets_Image.svg";
@@ -24,29 +25,53 @@ function HeroSectionMobile() {
             className="relative w-full overflow-hidden bg-white text-black"
         >
             {/* Decorative background */}
-            <img
+            <motion.img
                 src={Cloud_Elem_1}
                 alt=""
                 aria-hidden="true"
                 className="pointer-events-none scale-x-[-1] -translate-x-2 absolute -right-1 top-40 w-45 opacity-90"
+                // animate={{  x: [0, "80vw", 0] }}
+                // transition={{
+                //   duration: 40,
+                //   repeat: Infinity,
+                //   ease: "easeInOut",
+                // }}
             />
-            <img
+            <motion.img
                 src={Cloud_Elem_2}
                 alt=""
                 aria-hidden="true"
                 className="pointer-events-none absolute left-1 top-10 w-14 opacity-90"
+                animate={{ x: [0, "80vw", 0] }}
+                transition={{
+                  duration: 40,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
             />
-            <img
+            <motion.img
                 src={planet}
                 alt=""
                 aria-hidden="true"
                 className="pointer-events-none absolute right-4 top-7 w-15 opacity-90"
+                animate={{ y: [0, -12, 0] }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
             />
-            <img
+            <motion.img
                 src={kiteLeft}
                 alt=""
                 aria-hidden="true"
                 className="pointer-events-none absolute left-3 top-[25%] w-25 opacity-95"
+                animate={{ y: [0, 15, 0], x: [0, 8, 0] }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
             />
 
             {/* this kite is not in design */}
@@ -96,15 +121,33 @@ function HeroSectionMobile() {
                 </div>
 
                 {/* Side tags */}
-                <img
+                <motion.img
                     src={learn}
                     alt="#learn"
                     className="pointer-events-none absolute bottom-30 left-3 w-20 -rotate-18"
+                    animate={{
+                      y: [0, -15, 0],
+                      x: [0, 6, 0],
+                    }}
+                    transition={{
+                      duration: 4.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
                 />
-                <img
+                <motion.img
                     src={build}
                     alt="#build"
                     className="pointer-events-none absolute bottom-30 right-3 w-20 rotate-18"
+                    animate={{
+                      y: [0, -15, 0],
+                      x: [0, -6, 0],
+                    }}
+                    transition={{
+                      duration: 4.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
                 />
 
                 {/* Join button */}

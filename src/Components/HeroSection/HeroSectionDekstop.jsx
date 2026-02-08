@@ -1,4 +1,4 @@
-import VitVectorImage from "@/assets/VitVectorImage.svg";
+import VitVectorImage from "@/assets/VitBhopal.avif";
 import cloudLeft from "@/assets/Cloud_Elem_1.svg";
 import cloudRight from "@/assets/Cloud_Elem_2.svg";
 import kite1 from "@/assets/Kite_Element_1.svg";
