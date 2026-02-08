@@ -119,7 +119,7 @@ export default function HeroSectionDesktop() {
       />
 
       {/* Main content */}
-      <div className="relative mx-auto grid min-h-0 max-w-7xl grid-rows-[1fr_auto] pt-6 pb-0 bottom-0">
+      <div className="relative mx-auto grid min-h-0 max-w-7xl grid-rows-[1fr_auto] pt-8 pb-0 bottom-0">
         {/* Center content */}
         <div className="flex flex-col items-center justify-center">
           <h1
@@ -175,6 +175,7 @@ export default function HeroSectionDesktop() {
           </div>
 
             {/* Building Illustration */}
+          <div>
             
           <img
             src={VitVectorImage}
@@ -188,6 +189,7 @@ export default function HeroSectionDesktop() {
                 2xl:w-[80vw]
               "
           />
+          </div>
 
           {/* GDGC Logo  */}
           <div className="flex flex-col pt-[50vh] w-[10vw] h-full">
