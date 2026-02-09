@@ -113,17 +113,39 @@ export default function ChoosePathCardMobile({ contentOpacity = 1 }) {
             linesContainerRef.current.innerHTML = "";
 
             const gridRect = gridRef.current.getBoundingClientRect();
-            const positions = circleRefs.current
-                .filter((el) => el)
-                .map((el, index) => {
-                    const rect = el.getBoundingClientRect();
-                    return {
-                        id: index + 1,
-                        x: rect.left - gridRect.left + rect.width / 2,
-                        y: rect.top - gridRect.top + rect.height / 2,
-                        gridPos: mobileGridPositions[index],
-                    };
+
+            // Calculate scale factor by comparing rendered size vs layout size
+            const scaleX = gridRect.width / gridRef.current.offsetWidth;
+            const scaleY = gridRect.height / gridRef.current.offsetHeight;
+            const scale = (scaleX + scaleY) / 2 || 1;
+
+            const positions = [];
+            circleRefs.current.forEach((el, index) => {
+                if (!el) return;
+                const rect = el.getBoundingClientRect();
+                const relativeX = rect.left - gridRect.left + rect.width / 2;
+                const relativeY = rect.top - gridRect.top + rect.height / 2;
+
+                positions.push({
+                    id: index + 1,
+                    x: relativeX / scale,
+                    y: relativeY / scale,
+                    gridPos: mobileGridPositions[index],
                 });
+            });
+
+            // Normalize Y coordination for each row to ensure straight horizontal lines
+            const rowMap = new Map();
+            positions.forEach(pos => {
+                const row = pos.gridPos.row;
+                if (!rowMap.has(row)) rowMap.set(row, []);
+                rowMap.get(row).push(pos);
+            });
+
+            rowMap.forEach(rowPositions => {
+                const avgY = rowPositions.reduce((sum, p) => sum + p.y, 0) / rowPositions.length;
+                rowPositions.forEach(p => p.y = avgY);
+            });
 
             const createLine = (x1, y1, x2, y2, delay) => {
                 const dx = x2 - x1;
@@ -192,9 +214,19 @@ export default function ChoosePathCardMobile({ contentOpacity = 1 }) {
             }
         };
 
+        // Use ResizeObserver to detect size changes of the grid specifically
+        const resizeObserver = new ResizeObserver(() => {
+            window.requestAnimationFrame(drawLines);
+        });
+
+        if (gridRef.current) {
+            resizeObserver.observe(gridRef.current);
+        }
+
         const timer = setTimeout(drawLines, 500);
         window.addEventListener("resize", drawLines);
         return () => {
+            resizeObserver.disconnect();
             clearTimeout(timer);
             window.removeEventListener("resize", drawLines);
         };
@@ -298,11 +330,10 @@ export default function ChoosePathCardMobile({ contentOpacity = 1 }) {
                             {/* Tooltip on tap */}
                             {selectedGame === game.id && (
                                 <motion.div
-                                    className={`absolute w-40 ${
-                                        gridPos.row >= 4
+                                    className={`absolute w-40 ${gridPos.row >= 4
                                             ? "bottom-full mb-1"
                                             : "top-full mt-1"
-                                    } left-1/2 -translate-x-1/2`}
+                                        } left-1/2 -translate-x-1/2`}
                                     style={{ zIndex: 1000 }}
                                     initial={{ opacity: 0, scale: 0.95 }}
                                     animate={{ opacity: 1, scale: 1 }}

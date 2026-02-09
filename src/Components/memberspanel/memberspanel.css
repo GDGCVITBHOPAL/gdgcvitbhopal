@@ -184,7 +184,7 @@
 .profile-card {
   background: rgba(255, 255, 255, 0.15);
   border-radius: 20px;
-  padding: 2.5rem;
+  padding: 4.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -408,8 +408,8 @@
     padding: 1rem;
     border-top-width: 10px;
     border-bottom-width: 10px;
-    border-top-color: rgb(51, 255, 0);
-    border-bottom-color: rgb(230, 220, 15);
+    border-top-color: rgb(255, 77, 0);
+    border-bottom-color: rgb(15, 101, 230);
     border-radius: 16px;
     height: clamp(280px, 50vh, 380px);
     background: transparent;
@@ -427,7 +427,7 @@
   }
 
   .vision-text p {
-    font-size: 0.79rem;
+    font-size: 0.69rem;
     margin-bottom: 1rem;
     line-height: 1.4;
   }
@@ -448,8 +448,8 @@
     padding: 1.5rem;
     border-top-width: 10px;
     border-bottom-width: 10px;
-    border-top-color: rgb(255, 251, 0);
-    border-bottom-color: rgb(17, 242, 96);
+    border-top-color: #10b981;
+    border-bottom-color: #f59e0b;
     border-radius: 16px;
     max-width: none;
     height: clamp(280px, 50vh, 380px);

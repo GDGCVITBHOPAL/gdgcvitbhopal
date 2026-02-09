@@ -51,7 +51,7 @@ const ScrollLinkedSection = () => {
       image: "/Panel_member5.jpeg",
       github: "https://github.com/devanshi2208",
       linkedin: " https://www.linkedin.com/in/devanshi-sharma-183461324",
-      vision: "Started as an Event Team Member and now serve as Non-Tech Co-Lead, driven by ambition, consistency, dedication, and meaningful contributions toward personal and collective growth."
+      vision: "Started as an Event Team Member and now serve as Non-Tech Co-Lead, driven by ambition, consistency, and meaningful contributions toward personal and collective growth."
     }
   ];
 

@@ -112,21 +112,42 @@ export default function ChoosePathCard({ contentOpacity = 1 }) {
             if (!gridRef.current || !linesContainerRef.current) return;
             linesContainerRef.current.innerHTML = "";
 
-            // Get grid container position for relative calculations
+            // Get grid container position and dimensions
             const gridRect = gridRef.current.getBoundingClientRect();
+            const scaleX = gridRect.width / gridRef.current.offsetWidth;
+            const scaleY = gridRect.height / gridRef.current.offsetHeight;
+            const scale = (scaleX + scaleY) / 2 || 1;
 
             // Get positions from the CIRCLE elements relative to the grid
-            const positions = circleRefs.current
-                .filter((el) => el)
-                .map((el, index) => {
-                    const rect = el.getBoundingClientRect();
-                    return {
-                        id: index + 1,
-                        x: rect.left - gridRect.left + rect.width / 2,
-                        y: rect.top - gridRect.top + rect.height / 2,
-                        gridPos: gridPositions[index],
-                    };
+            const positions = [];
+            circleRefs.current.forEach((el, index) => {
+                if (!el) return;
+                const rect = el.getBoundingClientRect();
+                // Calculate position relative to grid
+                // Then divide by scale to get local coordinate system values
+                const relativeX = rect.left - gridRect.left + rect.width / 2;
+                const relativeY = rect.top - gridRect.top + rect.height / 2;
+
+                positions.push({
+                    id: index + 1,
+                    x: relativeX / scale,
+                    y: relativeY / scale,
+                    gridPos: gridPositions[index],
                 });
+            });
+
+            // Normalize Y coordination for each row to ensure straight horizontal lines
+            const rowMap = new Map();
+            positions.forEach(pos => {
+                const row = pos.gridPos.row;
+                if (!rowMap.has(row)) rowMap.set(row, []);
+                rowMap.get(row).push(pos);
+            });
+
+            rowMap.forEach(rowPositions => {
+                const avgY = rowPositions.reduce((sum, p) => sum + p.y, 0) / rowPositions.length;
+                rowPositions.forEach(p => p.y = avgY);
+            });
 
             // Helper function to create a line segment
             const createLine = (x1, y1, x2, y2, delay) => {
@@ -201,9 +222,24 @@ export default function ChoosePathCard({ contentOpacity = 1 }) {
             }
         };
 
+        // Use ResizeObserver to detect size changes of the grid specifically
+        const resizeObserver = new ResizeObserver(() => {
+            // Use requestAnimationFrame to avoid "ResizeObserver loop limit exceeded"
+            window.requestAnimationFrame(drawLines);
+        });
+
+        if (gridRef.current) {
+            resizeObserver.observe(gridRef.current);
+        }
+
+        // Initial draw
         const timer = setTimeout(drawLines, 500);
+
+        // Window resize fallback
         window.addEventListener("resize", drawLines);
+
         return () => {
+            resizeObserver.disconnect();
             clearTimeout(timer);
             window.removeEventListener("resize", drawLines);
         };
@@ -305,13 +341,12 @@ export default function ChoosePathCard({ contentOpacity = 1 }) {
                             {/* Tooltip - positioned closer to the game */}
                             {hoveredGame === game.id && (
                                 <motion.div
-                                    className={`absolute w-44 md:w-52 ${
-                                        gridPos.row === 3
-                                            ? "bottom-full mb-1"
-                                            : gridPos.col >= 3
-                                              ? "right-full mr-1 top-0"
-                                              : "left-full ml-1 top-0"
-                                    }`}
+                                    className={`absolute w-44 md:w-52 ${gridPos.row === 3
+                                        ? "bottom-full mb-1"
+                                        : gridPos.col >= 3
+                                            ? "right-full mr-1 top-0"
+                                            : "left-full ml-1 top-0"
+                                        }`}
                                     style={{ zIndex: 1000 }}
                                     initial={{ opacity: 0, scale: 0.95 }}
                                     animate={{ opacity: 1, scale: 1 }}
