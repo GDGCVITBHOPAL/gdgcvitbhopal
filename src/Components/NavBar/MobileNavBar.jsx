@@ -148,7 +148,7 @@ function MobileNavBar() {
                         />
                         <div className="flex flex-col">
                             <div className="text-sm font-medium">
-                                GDG On Campus
+                                GDGC On Campus
                             </div>
                             <div className="text-xs font-medium ml-2 self-center">
                                 VIT Bhopal

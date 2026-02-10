@@ -4,25 +4,28 @@ import leftBracket from "@/assets/EventsSectionAssets/leftBracket.svg";
 import rightBracket from "@/assets/EventsSectionAssets/rightBracket.svg";
 import wheel from "@/assets/EventsSectionAssets/wheel.svg";
 import gdgBadge from "@/assets/EventsSectionAssets/gdgBadge.svg";
+import event1 from "@/assets/EventsSectionAssets/event1.jpeg";
+import event2 from "@/assets/EventsSectionAssets/event2.jpeg";
+import event3 from "@/assets/EventsSectionAssets/event3.jpeg";
 
 const events = [
     {
         title: "Tech Winter Break 2024",
         date: "14 December 2024",
         accent: "bg-yellow-400",
-        img: "@/assets/EventsSectionAssets/event1.jpeg",
+        img: event1,
     },
     {
         title: "Build With AI",
         date: "6 April 2025",
         accent: "bg-blue-500",
-        img: "@/assets/EventsSectionAssets/event2.jpeg",
+        img: event2,
     },
     {
         title: "Speaker Session",
         date: "28 December 2025",
         accent: "bg-red-500",
-        img: "@/assets/EventsSectionAssets/event3.jpeg",
+        img: event3,
     },
 ];
 
