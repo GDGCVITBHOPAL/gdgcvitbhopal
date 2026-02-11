@@ -173,7 +173,7 @@ function HeroSectionMobile() {
                     />
                 </div>
                 <div className="absolute bottom-10">
-                    <div className="text-[1rem]">Google Developer Groups on Campus</div>
+                    <div className="text-[0.9rem]">Google Developer Groups on Campus</div>
                     <div className="text-center text-[0.75rem]">VIT Bhopal University</div>
                 </div>
             </div>

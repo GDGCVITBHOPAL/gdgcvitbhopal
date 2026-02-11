@@ -122,7 +122,7 @@ const ScrollLinkedSection = () => {
       <div className="heading-container">
         <img src={wheel} alt="wheel" className="wheel left-wheel" />
         <img src={leftBracket} alt="left bracket" className="bracket left-bracket" />
-        <h2 className="team-heading">Meet our Team</h2>
+        <h2 className="team-heading">Meet Our Team</h2>
         <img src={rightBracket} alt="right bracket" className="bracket right-bracket" />
         <img src={wheel} alt="wheel" className="wheel right-wheel" />
       </div>

@@ -10,9 +10,14 @@
 
 .panels-row {
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  gap: 1.5rem;
+  flex-direction: row;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  padding: 1rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 3px solid rgb(136, 108, 4);
+  gap: 4.9rem;
   width: 100%;
 }
 
@@ -24,16 +29,18 @@
 }
 
 .vision-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 24px;
-  padding: 3rem;
+  padding: 2rem;
+  border-top-width: 10px;
+  border-bottom-width: 10px;
+  border-top-color: rgb(255, 77, 0);
+  border-bottom-color: rgb(15, 101, 230);
+  border-radius: 16px;
+  height: clamp(280px, 50vh, 380px);
+  background: transparent;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: none;
   max-width: none;
   width: 100%;
-  height: clamp(320px, 60vh, 460px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  border-top: 20px solid blue;
-  border-bottom: 20px solid blue;
 }
 
 .vision-title {
@@ -54,7 +61,7 @@
 }
 
 .vision-text p {
-  font-size: 1rem;
+  font-size: 0.85rem;
   color: #4a4a4a;
   margin: 0 0 2rem 0;
 }
@@ -147,7 +154,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 6.6rem;
   margin-bottom: 1rem;
 }
 
@@ -157,9 +164,9 @@
 }
 
 .wheel {
-  width: 70px;
+  width: 120px;
   height: auto;
-  animation: rotate 4s linear infinite;
+  animation: rotate 5s linear infinite;
 }
 
 @keyframes rotate {
@@ -178,18 +185,20 @@
 }
 
 .profiles-container {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 24px;
-  padding: 3rem;
+  padding: 0rem;
+  border-top-width: 10px;
+  border-bottom-width: 10px;
+  border-top-color: #10b981;
+  border-bottom-color: #f59e0b;
+  border-radius: 16px;
   max-width: none;
   width: 100%;
-  height: clamp(320px, 60vh, 460px);
+  height: clamp(280px, 50vh, 380px);
   overflow-y: auto;
   overflow-x: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  border-top: 20px solid rgb(255, 0, 0);
-  border-bottom: 20px solid rgb(255, 0, 0);
+  background: transparent;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: none;
 }
 
 .scroll-spacer-top,
@@ -201,7 +210,7 @@
 .profile-card {
   background: rgba(255, 255, 255, 0.15);
   border-radius: 20px;
-  padding: 4.5rem;
+  padding: 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -211,7 +220,7 @@
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0.5;
   transform: translateY(0);
-  min-height: 200px;
+  min-height: 160px;
 }
 
 .profile-card.active {
@@ -233,8 +242,8 @@
 
 .profile-image-container {
   flex-shrink: 0;
-  width: 140px;
-  height: 140px;
+  width: 180px;
+  height: 180px;
   border-radius: 16px;
   overflow: hidden;
   border: 3px solid rgba(255, 255, 255, 0.5);
@@ -261,7 +270,7 @@
 }
 
 .profile-name {
-  font-size: 1.75rem;
+  font-size: 2rem;
   font-weight: 700;
   margin: 0;
   color: rgba(255, 255, 255, 0.9);
@@ -293,8 +302,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.2);
   color: rgba(255, 255, 255, 0.8);
@@ -328,7 +337,7 @@
   }
 
   .vision-title {
-    font-size: 2rem;
+    font-size: 3rem;
   }
 
   .vision-text p {
@@ -341,8 +350,8 @@
   }
 
   .profile-image-container {
-    width: 120px;
-    height: 120px;
+    width: 80px;
+    height: 80px;
   }
 
   .profile-name {
@@ -463,8 +472,8 @@
 
   .profiles-container {
     padding: 0rem;
-    border-top-width: 10px;
-    border-bottom-width: 10px;
+    border-top-width: 8px;
+    border-bottom-width: 8px;
     border-top-color: #10b981;
     border-bottom-color: #f59e0b;
     border-radius: 16px;
@@ -496,8 +505,8 @@
   }
 
   .profile-image-container {
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
     order: 1;
     border-radius: 12px;
   }
