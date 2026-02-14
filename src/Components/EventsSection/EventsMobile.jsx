@@ -65,7 +65,7 @@ function EventsMobile() {
                     {events.map((event) => (
                         <article
                             key={event.title}
-                            className="relative rounded-2xl border-2 border-black bg-white shadow-[4px_4px_0_0_#111]"
+                            className="relative rounded-2xl border-2 border-black bg-white shadow-[4px_4px_0_0_#111] transition-all duration-150 hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
                         >
                             <div
                                 className={`h-3 w-full rounded-t-2xl ${event.accent}`}
