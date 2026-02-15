@@ -168,11 +168,10 @@ export default function FAQ() {
 
   return (
     <div
-      className="w-screen min-h-[80vh] max-h-[80vh] overflow-y-auto relative flex flex-col isolate"
+      className="w-screen min-h-screen relative flex flex-col isolate"
       style={{
         fontFamily: "'Poppins', sans-serif",
-        minHeight: '80vh',
-        maxHeight: '100vh',
+        minHeight: '100vh',
         width: '100vw',
         backgroundImage: "url('/FAQ_BG.png')",
         backgroundSize: '100% 100%',
@@ -197,7 +196,7 @@ export default function FAQ() {
         }}
       >
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-          <h1 className="text-black text-[40px] md:text-[100px] font-extrabold mb-4 md:mb-0 tracking-tight" style={{ fontFamily: 'Syne, sans-serif' }}>
+          <h1 className="text-black text-[40px] md:text-[100px] font-extrabold mb-0 md:mb-0 tracking-tight" style={{ fontFamily: 'Syne, sans-serif' }}>
             FAQs
           </h1>
 
@@ -222,7 +221,7 @@ export default function FAQ() {
       {/* Content */}
       <div className="relative z-10 px-4 md:px-28 pt-2 pb-2 md:pb-4">
         <div className="space-y-2 md:space-y-4">
-          <h2 className="text-black text-lg md:text-2xl font-extrabold mb-3 md:mb-4 uppercase">
+          <h2 className="text-black text-lg md:text-2xl font-extrabold mt-1 mb-3 md:mb-4 uppercase">
             {activeTab}
           </h2>
           <div className="space-y-2 md:space-y-4 text-black">
