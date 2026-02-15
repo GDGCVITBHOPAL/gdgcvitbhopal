@@ -18,6 +18,7 @@ import gdgRightHalf from "@/assets/gdg_right_half.png";
 
 import { Button } from "@/shadcn/ui/button.jsx";
 import { ExternalLink, MapPin } from "lucide-react";
+import DinoFollower from "../DinoFollower";
 
 function HeroSectionMobile() {
     return (
@@ -158,6 +159,7 @@ function HeroSectionMobile() {
             /> */}
 
             {/* Main layout */}
+            <DinoFollower />
             <div className="relative mx-auto flex min-h-[calc(100svh-3.25rem)] max-w-107.5 flex-col items-center px-4 pb-5 pt-4">
                 <h1
                     className="mt-8 text-center leading-[0.9]"
