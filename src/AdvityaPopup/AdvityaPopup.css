@@ -1,0 +1,226 @@
+/* ================= BACKDROP ================= */
+.popup-backdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(2px);
+}
+
+/* ================= POPUP WRAPPER ================= */
+.speech-wrapper{
+  position: relative;
+  width: clamp(360px, 50vw, 600px);
+  animation: popIn .3s ease;
+}
+
+/* ================= FRAME ================= */
+.stamp-frame{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+  position: relative;
+}
+
+/* ================= STAMP BORDER ================= */
+.stamp-border{
+  padding: 12px;
+  background: white;
+  position: relative;
+  display: inline-block;
+
+  /* perforated holes */
+  background: radial-gradient(
+    transparent 0px,
+    transparent 5px,
+    white 5px,
+    white
+  );
+  background-size: 20px 20px;
+  background-position: -10px -10px;
+}
+
+/* ================= STAMP CORE ================= */
+.stamp-core{
+  background: black;
+  padding: 8px;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ================= POSTER IMAGE ================= */
+.stamp-core img{
+  width: 100%;
+  display: block;
+  border-radius: 4px;
+  max-height: 400px;
+}
+
+/* ================= CLOSE BUTTON ================= */
+.close-btn{
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #ff3b3b;
+  color: white;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+  z-index: 20;
+}
+
+.close-btn:hover{
+  transform: scale(1.1);
+  background: #ff1744;
+}
+
+/* ================= COUNTDOWN (SMALL, WHITE, CLEAN) ================= */
+
+.count-down-main{
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+/* outer box */
+.timer{
+  width: 56px;
+}
+
+/* white square */
+.timer > div{
+  background: #ffffff !important;
+  padding: 6px 4px !important;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+/* number */
+.countdown-element{
+  color: #000000 !important;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+
+/* label text */
+.timer p{
+  color: #ffffff !important;
+  font-size: 12px;
+  margin-top: 4px;
+  text-align: center;
+}
+
+/* colon */
+.count-down-main > h3{
+  color: #000000 !important;
+  font-size: 20px;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+/* seconds animation */
+.animate-countinsecond{
+  animation: pulse 1s infinite;
+}
+
+/* ================= REGISTER STAMP STICKER ================= */
+.register-btn{
+  position: absolute;
+  bottom: 8rem;
+  right: clamp(0.75rem, 12vw, 10rem);
+  background: #ff3b3b;
+  color: white;
+  font-weight: 900;
+  font-size: 16px;
+  padding: 10px 8px;
+  text-decoration: none;
+  transform: rotate(-15deg);
+  border-radius: 4px;
+  letter-spacing: 1px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  border: 2px dashed white;
+  z-index: 5;
+}
+
+.register-btn:hover{
+  transform: rotate(-15deg) scale(1.05);
+  background: #ff1744;
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes popIn{
+  from{
+    transform: scale(.85);
+    opacity: 0;
+  }
+  to{
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse{
+  0%{ transform: scale(1); }
+  50%{ transform: scale(1.08); }
+  100%{ transform: scale(1); }
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
+@media (max-width: 600px){
+
+  .speech-wrapper{
+    width: 95vw;
+  }
+
+  .stamp-core img{
+    max-height: 380px;
+  }
+
+  .timer{
+    width: 48px;
+  }
+
+  .timer > div{
+    padding: 8px 5px !important;
+  }
+
+  .countdown-element{
+    font-size: 18px;
+  }
+
+  .timer p{
+    font-size: 11px;
+  }
+
+  .count-down-main > h3{
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+  .register-btn{
+    font-size: 14px;
+    padding: 10px 20px;
+    bottom: 9rem;
+    right: clamp(0.75rem, 20vw, 10rem);
+  }
+
+  .close-btn{
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+}

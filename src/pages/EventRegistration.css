@@ -1,0 +1,602 @@
+/* Google-Inspired Event Registration Page */
+
+:root {
+  --google-blue: #4285f4;
+  --google-red: #ea4335;
+  --google-yellow: #fbbc04;
+  --google-green: #34a853;
+  --google-dark: #202124;
+  --google-light: #f8f9fa;
+}
+
+.event-registration-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 2rem 1rem;
+}
+
+/* Animated Google Blob Background */
+.google-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.google-blob {
+  position: absolute;
+  filter: blur(40px);
+  opacity: 0.15;
+  mix-blend-mode: screen;
+  animation: float 20s infinite ease-in-out;
+}
+
+.blob-1 {
+  width: 400px;
+  height: 400px;
+  background: var(--google-blue);
+  top: -10%;
+  left: 10%;
+  animation: float 25s infinite ease-in-out;
+}
+
+.blob-2 {
+  width: 350px;
+  height: 350px;
+  background: var(--google-red);
+  top: 20%;
+  right: 5%;
+  animation: float 30s infinite ease-in-out reverse;
+}
+
+.blob-3 {
+  width: 380px;
+  height: 380px;
+  background: var(--google-yellow);
+  bottom: 10%;
+  left: 20%;
+  animation: float 35s infinite ease-in-out;
+}
+
+.blob-4 {
+  width: 320px;
+  height: 320px;
+  background: var(--google-green);
+  bottom: 20%;
+  right: 15%;
+  animation: float 28s infinite ease-in-out reverse;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 30px) scale(0.9);
+  }
+}
+
+/* Main Container */
+.registration-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header Section */
+.header-section {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding: 2rem;
+}
+
+.header-content {
+  position: relative;
+  z-index: 2;
+}
+
+.main-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--google-dark);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    var(--google-blue) 0%,
+    var(--google-red) 25%,
+    var(--google-yellow) 50%,
+    var(--google-green) 75%,
+    var(--google-blue) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: #5f6368;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+/* Floating Icons */
+.floating-icons {
+  position: relative;
+  height: 100px;
+  margin-top: 2rem;
+}
+
+.icon-float {
+  position: absolute;
+  font-size: 2.5rem;
+  animation: float-up 6s ease-in-out infinite;
+}
+
+.icon-1 {
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.icon-2 {
+  left: 30%;
+  animation-delay: 1s;
+}
+
+.icon-3 {
+  right: 30%;
+  animation-delay: 2s;
+}
+
+.icon-4 {
+  right: 10%;
+  animation-delay: 1.5s;
+}
+
+@keyframes float-up {
+  0%, 100% {
+    transform: translateY(0px);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-20px);
+    opacity: 1;
+  }
+}
+
+/* Form Wrapper */
+.form-wrapper {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 24px;
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 2;
+}
+
+/* Form Sections */
+.form-section {
+  margin-bottom: 2.5rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--google-dark);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--google-light);
+}
+
+/* Form Grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Form Group */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--google-dark);
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.form-input {
+  padding: 0.875rem 1rem;
+  border: 2px solid #dadce0;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  background: white;
+  color: var(--google-dark);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--google-blue);
+  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+  background: #f8f9fa;
+}
+
+.form-input::placeholder {
+  color: #9aa0a6;
+}
+
+.form-input.error {
+  border-color: var(--google-red);
+  background: rgba(234, 67, 53, 0.05);
+}
+
+.form-input.error:focus {
+  box-shadow: 0 0 0 3px rgba(234, 67, 53, 0.1);
+}
+
+.error-message {
+  color: var(--google-red);
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+  font-weight: 500;
+}
+
+/* Textarea */
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+}
+
+/* Interests Grid */
+.interests-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.interest-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 2px solid #dadce0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.interest-checkbox:hover {
+  border-color: var(--google-blue);
+  background: #f8f9fa;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(66, 133, 244, 0.1);
+}
+
+.interest-checkbox input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--google-blue);
+}
+
+.interest-checkbox input[type="checkbox"]:checked + .checkbox-label {
+  color: var(--google-blue);
+  font-weight: 600;
+}
+
+.checkbox-label {
+  cursor: pointer;
+  color: var(--google-dark);
+  font-weight: 500;
+}
+
+/* Submit Section */
+.submit-section {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.submit-button {
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(
+    135deg,
+    var(--google-blue) 0%,
+    #3367d6 100%
+  );
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 6px 20px rgba(66, 133, 244, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.submit-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(66, 133, 244, 0.4);
+}
+
+.submit-button:hover::before {
+  left: 100%;
+}
+
+.submit-button:active {
+  transform: translateY(-2px);
+}
+
+.button-text {
+  font-weight: 700;
+}
+
+.button-icon {
+  transition: transform 0.3s ease;
+  font-weight: 700;
+}
+
+.submit-button:hover .button-icon {
+  transform: translateX(4px);
+}
+
+/* Success Modal */
+.success-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.success-card {
+  background: white;
+  border-radius: 24px;
+  padding: 3rem 2rem;
+  text-align: center;
+  max-width: 400px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.5s ease;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--google-green), #1f9e78);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: white;
+  margin: 0 auto 1.5rem;
+  animation: scaleIn 0.6s ease;
+  box-shadow: 0 10px 30px rgba(52, 168, 83, 0.3);
+}
+
+.success-card h2 {
+  font-size: 1.75rem;
+  color: var(--google-dark);
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.success-card p {
+  color: #5f6368;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .form-wrapper {
+    padding: 1.5rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .interests-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .submit-button {
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .floating-icons {
+    display: none;
+  }
+
+  .google-blob {
+    filter: blur(60px);
+  }
+}
+
+@media (max-width: 480px) {
+  .main-title {
+    font-size: 2rem;
+  }
+
+  .form-wrapper {
+    border-radius: 16px;
+    padding: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+  }
+
+  .interests-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header-section {
+    padding: 1rem;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .event-registration-page {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  }
+
+  .form-wrapper {
+    background: rgba(32, 33, 36, 0.95);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .main-title,
+  .section-title {
+    color: white;
+  }
+
+  .subtitle {
+    color: #bdc1c6;
+  }
+
+  .form-label,
+  .checkbox-label {
+    color: white;
+  }
+
+  .form-input,
+  .interest-checkbox {
+    background: rgba(60, 64, 67, 0.7);
+    border-color: rgba(218, 220, 224, 0.15);
+    color: white;
+  }
+
+  .form-input:focus {
+    background: rgba(60, 64, 67, 0.9);
+    border-color: var(--google-blue);
+  }
+
+  .interest-checkbox:hover {
+    background: rgba(60, 64, 67, 0.9);
+  }
+
+  .interest-checkbox input[type="checkbox"]:checked + .checkbox-label {
+    color: var(--google-blue);
+  }
+
+  .error-message {
+    color: #f8b500;
+  }
+
+  .success-card {
+    background: #202124;
+    color: white;
+  }
+
+  .success-card h2 {
+    color: white;
+  }
+
+  .success-card p {
+    color: #bdc1c6;
+  }
+}

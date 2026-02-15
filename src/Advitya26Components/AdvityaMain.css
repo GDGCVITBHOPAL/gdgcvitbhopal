@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+html.advitya-page {
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}

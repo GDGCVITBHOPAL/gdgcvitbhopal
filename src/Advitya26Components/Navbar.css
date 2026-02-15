@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap");
+
+@import "tailwindcss";
+
+/* Neon color variables */
+:root {
+    --neon-blue: 217 91% 60%;
+    --neon-blue-glow: 217 100% 70%;
+    --neon-red: 4 90% 58%;
+    --neon-red-glow: 4 100% 65%;
+    --neon-yellow: 45 100% 51%;
+    --neon-yellow-glow: 45 100% 60%;
+    --neon-green: 142 76% 46%;
+    --neon-green-glow: 142 90% 55%;
+}
+
+/* Glass panel */
+.glass-panel {
+    @apply backdrop-blur-xl border border-white/10 bg-black/40;
+    box-shadow:
+        inset 0 1px 0 0 hsl(0 0% 100% / 0.05),
+        0 10px 40px -10px hsl(0 0% 0% / 0.5);
+}
+
+/* Olympic torch glow */
+.olympic-torch-glow::before {
+    content: "";
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(
+        circle at center,
+        hsl(45 100% 60% / 0.4) 0%,
+        hsl(4 100% 65% / 0.3) 30%,
+        hsl(217 100% 70% / 0.2) 60%,
+        transparent 100%
+    );
+    filter: blur(20px);
+    animation: torch-flicker 3s ease-in-out infinite;
+}
+
+@keyframes torch-flicker {
+    0%,
+    100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(0.95);
+    }
+}
+
+.magnetic-link::after {
+    @apply content-[''] absolute bottom-0 left-0 w-full h-0.5 origin-left scale-x-0 transition-transform duration-300;
+    background: linear-gradient(90deg, hsl(217 91% 60%), hsl(142 76% 46%));
+}
+.magnetic-link:hover::after {
+    @apply scale-x-100;
+}
+
+.font-montserrat {
+    font-family:
+        "Montserrat",
+        Inter,
+        system-ui,
+        -apple-system,
+        "Segoe UI",
+        Roboto,
+        "Helvetica Neue",
+        Arial,
+        "Noto Sans",
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol";
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+.logo {
+    transition: transform 0.25s ease;
+    transform-origin: center;
+    will-change: transform;
+}
+.logo-rotating {
+    animation: spin 1s linear infinite;
+}
+.logo:hover {
+    transform: scale(1.05);
+}
