@@ -173,7 +173,7 @@ export default function FAQ() {
         fontFamily: "'Poppins', sans-serif",
         minHeight: '100vh',
         width: '100vw',
-        backgroundImage: "url('/FAQ_BG.png')",
+        backgroundImage: "url('/FAQ_BG.avif')",
         backgroundSize: '100% 100%',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

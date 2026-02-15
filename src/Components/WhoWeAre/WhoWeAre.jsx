@@ -72,7 +72,7 @@ export default function WhoWeAre() {
             {/* Top row: Main wide team photo - Flex 3 to take more space */}
             <div className="flex-3 min-h-0 rounded-2xl overflow-hidden border-2 border-black shadow-[4px_4px_0_0_#111] transition-all duration-150 hover:translate-x-1 hover:translate-y-1 hover:shadow-none">
               <img
-                src="/gdgc-team-formal copy.jpg"
+                src="/gdgc-team-formal copy.avif"
                 alt="GDG on Campus team"
                 className="w-full h-full object-cover object-center"
               />
@@ -82,14 +82,14 @@ export default function WhoWeAre() {
             <div className="flex-2 min-h-0 grid grid-cols-2 gap-3 lg:gap-4">
               <div className="rounded-2xl overflow-hidden border-2 border-black shadow-[4px_4px_0_0_#111] transition-all duration-150 hover:translate-x-1 hover:translate-y-1 hover:shadow-none">
                 <img
-                  src="/gdgc-team-selfie.jpg"
+                  src="/gdgc-team-selfie.avif"
                   alt="Team selfie"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="rounded-2xl overflow-hidden border-2 border-black shadow-[4px_4px_0_0_#111] transition-all duration-150 hover:translate-x-1 hover:translate-y-1 hover:shadow-none">
                 <img
-                  src="/gdgc-team-casual.jpg"
+                  src="/gdgc-team-casual.avif"
                   alt="Team casual"
                   className="w-full h-full object-cover"
                 />
