@@ -64,6 +64,13 @@ export default function AdvityaFooter() {
               {/* Contact Email */}
               <div className="mb-4 text-left md:text-right">
                 <p className="text-xl md:text-2xl font-semibold mb-1">gdsc@vitbhopal.ac.in</p>
+                <div style={{ height: '4em' }} />
+                <div className="mt-2 text-base md:text-xl font-medium">
+                  <span className="block mb-1">Phone:</span>
+                  <span className="block">Anubhavi Jaiswal: <span style={{ fontWeight: 600 }}>9569326645</span></span>
+                  <span className="block">Priyansh Chaudhary: <span style={{ fontWeight: 600 }}>8602574613</span></span>
+                  <span className="block">Devanshi Sharma: <span style={{ fontWeight: 600 }}>7477255153</span></span>
+                </div>
               </div>
 
               {/* Social Media Icons */}
