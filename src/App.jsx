@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import NavBar from "./Components/NavBar/NavBar";
 import SplashScreen from "./Components/SplashScreen/SplashScreen";
 import Footer from "./Components/Footer/Footer";
@@ -31,6 +32,7 @@ function App() {
       <div ref={footerRef} id="footer">
         <Footer />
       </div>
+      <Analytics />
     </>
   );
 }
