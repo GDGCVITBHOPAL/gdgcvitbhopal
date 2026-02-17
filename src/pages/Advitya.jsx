@@ -68,10 +68,10 @@ function Advitya() {
                 />
             )}
 
-            <div className="relative z-10" style={{ marginTop: "-100vh" }}>
+            <div className="relative z-10 pointer-events-none" style={{ marginTop: "-100vh" }}>
                 {/* Space paralax background */}
                 <div ref={homeRef} style={{ height: "100vh" }} />
-                <div ref={gamesRef}>
+                <div ref={gamesRef} className="pointer-events-auto">
                     {isMobile ? (
                         <CardMainSection
                             bgColor="transparent"
@@ -100,7 +100,7 @@ function Advitya() {
                 <section
                     ref={faqRef}
                     id="faq-section"
-                    className="relative w-full"
+                    className="relative w-full pointer-events-auto"
                     style={{ zIndex: 1 }}
                 >
                     <FAQ />
@@ -116,7 +116,7 @@ function Advitya() {
                 </section> */}
 
                 {/* Footer Section */}
-                <div ref={footerRef}>
+                <div ref={footerRef} className="pointer-events-auto">
                     <AdvityaFooter />
                 </div>
             </div>
