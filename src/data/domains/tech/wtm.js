@@ -85,7 +85,7 @@ const wtmDomain = {
         lead: {
             name: "Anshika Shrivastava",
             role: "Women Techmakers Lead",
-            avatar:"/Domainimages/TechDomainimages/WTMmembersimages/IMG20241031213122 - Anshika Shrivastava 23bai10033.jpg",
+            avatar:"/Domainimages/TechDomainimages/WTMmembersimages/Anshika Shrivastava 23bai10033.jpeg",
             bio: "Passionate about creating inclusive spaces for women in technology.",
             linkedin:
                 "https://www.linkedin.com/in/anshika-shrivastava-a2a078294",
