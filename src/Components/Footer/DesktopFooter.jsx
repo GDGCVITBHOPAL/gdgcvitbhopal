@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-// import footerCloud from "@/assets/footer_cloud_img.svg";
 import {
     Github,
     Instagram,
@@ -8,6 +7,7 @@ import {
     Facebook,
     Mail,
     MapPin,
+    Phone,
     ExternalLink,
     TwitchIcon,
 } from "lucide-react";
@@ -15,18 +15,14 @@ import {
 export default function DesktopFooter() {
     const year = new Date().getFullYear();
 
+    const contacts = [
+        { name: "Anubhavi Jaiswal", phone: "9569326645" },
+        { name: "Priyansh Chaudhary", phone: "8602574613" },
+        { name: "Devanshi Sharma", phone: "7477255153" },
+    ];
+
     return (
         <footer className="hidden lg:block relative w-full overflow-hidden bg-[#0f1115] text-white">
-            {/* Cloud header */}
-            {/* <div className="pointer-events-none select-none relative w-full">
-                <img
-                    src={footerCloud}
-                    alt=""
-                    className="w-full h-80 scale-x-120"
-                />
-                <div className="absolute inset-x-0 bottom-0 h-16 bg-linear-to-b from-transparent to-[#0f1115]" />
-            </div> */}
-
             <div className="mx-auto max-w-6xl px-8 pt-10 pb-10">
                 <div className="grid grid-cols-12 gap-10">
                     {/* Logo */}
@@ -51,15 +47,47 @@ export default function DesktopFooter() {
                             and hands-on projects.
                         </p>
 
-                        <div className="mt-5 flex items-start gap-2 text-sm text-white/80">
-                            <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
-                            <span>VIT Bhopal University, India</span>
+                        {/* Contact Info */}
+                        <div className="mt-5 flex flex-col gap-2">
+                            <div className="flex items-start gap-2 text-sm text-white/80">
+                                <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
+                                <span>VIT Bhopal University, India</span>
+                            </div>
+
+                            <a
+                                href="mailto:gdgc@vitbhopal.ac.in"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="flex items-center gap-2 text-sm text-white/80 hover:text-white transition cursor-pointer"
+                            >
+                                <Mail className="h-4 w-4 shrink-0" />
+                                <span>gdgc@vitbhopal.ac.in</span>
+                            </a>
+
+                            <div className="flex flex-col gap-1.5 mt-1">
+                                {contacts.map((contact) => (
+                                    <a
+                                        key={contact.phone}
+                                        href={`tel:+91${contact.phone}`}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="flex items-center gap-2 text-sm text-white/80 hover:text-white transition cursor-pointer"
+                                    >
+                                        <Phone className="h-4 w-4 shrink-0" />
+                                        <span>
+                                            {contact.name}: +91 {contact.phone}
+                                        </span>
+                                    </a>
+                                ))}
+                            </div>
                         </div>
 
+                        {/* Social Icons */}
                         <div className="mt-6 flex items-center gap-3">
                             <a
                                 href="https://www.instagram.com/gdgcvitbhopal"
                                 target="_blank"
+                                rel="noreferrer"
                                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition"
                                 aria-label="Instagram"
                             >
@@ -68,6 +96,7 @@ export default function DesktopFooter() {
                             <a
                                 href="https://www.linkedin.com/company/gdgcvitbhopal"
                                 target="_blank"
+                                rel="noreferrer"
                                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition"
                                 aria-label="LinkedIn"
                             >
@@ -76,6 +105,7 @@ export default function DesktopFooter() {
                             <a
                                 href="https://www.facebook.com/gdscvitbhopal"
                                 target="_blank"
+                                rel="noreferrer"
                                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition"
                                 aria-label="Facebook"
                             >
@@ -84,6 +114,7 @@ export default function DesktopFooter() {
                             <a
                                 href="https://x.com/gdgcvitbhopal"
                                 target="_blank"
+                                rel="noreferrer"
                                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition"
                                 aria-label="Twitter"
                             >
@@ -92,6 +123,7 @@ export default function DesktopFooter() {
                             <a
                                 href="https://github.com/GDGCVITBHOPAL"
                                 target="_blank"
+                                rel="noreferrer"
                                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition"
                                 aria-label="GitHub"
                             >
@@ -100,6 +132,7 @@ export default function DesktopFooter() {
                             <a
                                 href="mailto:gdgc@vitbhopal.ac.in"
                                 target="_blank"
+                                rel="noreferrer"
                                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition"
                                 aria-label="Email"
                             >
@@ -205,7 +238,7 @@ export default function DesktopFooter() {
                                         to="/teams/nonTech/socialMediaMarketingTeam"
                                         className="hover:text-white"
                                     >
-                                        Social Media & Marketing Team
+                                        Social Media &amp; Marketing Team
                                     </Link>
                                 </li>
                                 <li>
@@ -213,7 +246,7 @@ export default function DesktopFooter() {
                                         to="/teams/nonTech/designContentTeam"
                                         className="hover:text-white"
                                     >
-                                        Design & Content Team
+                                        Design &amp; Content Team
                                     </Link>
                                 </li>
                                 <li>
@@ -221,7 +254,7 @@ export default function DesktopFooter() {
                                         to="/teams/nonTech/videoPhotographyTeam"
                                         className="hover:text-white"
                                     >
-                                        Video & Photography Team
+                                        Video &amp; Photography Team
                                     </Link>
                                 </li>
                             </ul>
@@ -229,6 +262,7 @@ export default function DesktopFooter() {
                     </div>
                 </div>
 
+                {/* Bottom Bar */}
                 <div className="mt-10 border-t border-white/15 pt-6 flex items-center justify-between">
                     <div className="text-xs text-white/60">
                         © {year} GDG ON CAMPUS VIT Bhopal. All rights reserved.
