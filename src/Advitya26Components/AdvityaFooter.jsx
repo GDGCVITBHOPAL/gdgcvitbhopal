@@ -13,6 +13,12 @@ export default function AdvityaFooter() {
     "/stickers/10_play 1.png",
   ];
 
+  const contacts = [
+    { name: "Anubhavi Jaiswal", phone: "9569326645" },
+    { name: "Priyansh Chaudhary", phone: "8602574613" },
+    { name: "Devanshi Sharma", phone: "7477255153" },
+  ];
+
   return (
     <FallingImagesBackground
       images={stickers}
@@ -31,7 +37,7 @@ export default function AdvityaFooter() {
           <div className="flex flex-col md:flex-row justify-between items-start w-full gap-8 md:gap-12">
             {/* Left Side - CTA */}
             <div className="flex-1 max-w-3xl">
-              <h2 
+              <h2
                 className="text-5xl md:text-6xl lg:text-8xl font-black mb-8 leading-none tracking-tight text-white"
                 style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
               >
@@ -39,9 +45,9 @@ export default function AdvityaFooter() {
                 SOMETHING<br />
                 COOL?
               </h2>
-              
-              <a 
-                href="#contact" 
+
+              <a
+                href="#contact"
                 className="inline-flex items-center gap-2 text-lg md:text-xl hover:text-blue-400 transition-colors font-medium"
               >
                 Let's talk tech →
@@ -52,32 +58,45 @@ export default function AdvityaFooter() {
             <div className="flex-1 flex flex-col items-start md:items-end">
               {/* Dragon Icon */}
               <div className="mb-4">
-                <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="20" y="20" width="60" height="60" fill="#6B7FFF" rx="8"/>
-                  <circle cx="40" cy="45" r="5" fill="white"/>
-                  <circle cx="60" cy="45" r="5" fill="white"/>
-                </svg>
               </div>
 
               <h3 className="text-2xl md:text-3xl font-bold mb-4 tracking-wide">CONTACT US</h3>
-              
+
               {/* Contact Email */}
               <div className="mb-4 text-left md:text-right">
-                <p className="text-xl md:text-2xl font-semibold mb-1">gdsc@vitbhopal.ac.in</p>
+                <a
+                  href="mailto:gdsc@vitbhopal.ac.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xl md:text-2xl font-semibold mb-1 hover:text-blue-400 transition-colors block"
+                >
+                  gdgc@vitbhopal.ac.in
+                </a>
+
                 <div style={{ height: '4em' }} />
-                <div className="mt-2 text-base md:text-xl font-medium">
+
+                <div className="mt-2 text-base md:text-xl font-medium text-justify">
                   <span className="block mb-1">Phone:</span>
-                  <span className="block">Anubhavi Jaiswal: <span style={{ fontWeight: 600 }}>9569326645</span></span>
-                  <span className="block">Priyansh Chaudhary: <span style={{ fontWeight: 600 }}>8602574613</span></span>
-                  <span className="block">Devanshi Sharma: <span style={{ fontWeight: 600 }}>7477255153</span></span>
+                  {contacts.map((contact) => (
+                    <a
+                      key={contact.phone}
+                      href={`tel:+91${contact.phone}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block hover:text-blue-400 transition-colors cursor-pointer"
+                    >
+                      {contact.name}:{" "}
+                      <span style={{ fontWeight: 600 }}>{contact.phone}</span>
+                    </a>
+                  ))}
                 </div>
               </div>
 
               {/* Social Media Icons */}
               <div className="flex justify-start md:justify-end gap-4">
-                <a 
-                  href="https://www.instagram.com/gdgcvitbhopal" 
-                  target="_blank" 
+                <a
+                  href="https://www.instagram.com/gdgcvitbhopal"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
                 >
@@ -87,9 +106,9 @@ export default function AdvityaFooter() {
                     <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
                   </svg>
                 </a>
-                <a 
-                  href="https://x.com/gdgcvitbhopal" 
-                  target="_blank" 
+                <a
+                  href="https://x.com/gdgcvitbhopal"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
                 >
@@ -97,9 +116,9 @@ export default function AdvityaFooter() {
                     <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
                   </svg>
                 </a>
-                <a 
-                  href="https://www.linkedin.com/company/gdgcvitbhopal" 
-                  target="_blank" 
+                <a
+                  href="https://www.linkedin.com/company/gdgcvitbhopal"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
                 >
