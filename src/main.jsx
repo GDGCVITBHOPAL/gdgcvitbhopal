@@ -17,6 +17,8 @@ import AllEvents from "./pages/AllEventsPage";
 import AboutUs from "./pages/AboutUs";
 import EventRegistration from "./pages/EventRegistration";
 import Advitya from "./pages/Advitya";
+import LeaderboardPage from "./pages/LeaderboardPage";
+import AdminPage from "./pages/AdminPage";
 
 import { ScrollProvider } from "./context/ScrollContext";
 import { AdvityaScrollProvider } from "./context/AdvityaScrollContext";
@@ -69,6 +71,8 @@ createRoot(document.getElementById("root")).render(
                         <Route path="*" element={<Navigate to="/" replace />} />
                     </Route>
                     <Route path="/advitya" element={<AdvityaScrollProvider><Advitya /></AdvityaScrollProvider>} />
+                    <Route path="/advitya/leaderboard" element={<LeaderboardPage />} />
+                    <Route path="/advitya/admin" element={<AdminPage />} />
 
                 </Routes>
             </ScrollProvider>
