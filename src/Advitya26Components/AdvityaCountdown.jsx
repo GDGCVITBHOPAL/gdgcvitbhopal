@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function AdvityaCountdown({ onFinish }) {
   const [startCounting, setStartCounting] = useState(false)
 
-  useEffect(() => {
-    setTimeout(() => setStartCounting(true), 300)
-
+  const handleCountComplete = useCallback(() => {
+    // After the counter reaches 2026 wait 300 milisecond
     const finishId = setTimeout(() => {
-      onFinish?.()
-    }, 3500)
-
-    return () => {
-      clearTimeout(finishId)
-    }
+      onFinish()
+    }, 500)
+    return () => clearTimeout(finishId)
   }, [onFinish])
+
+  useEffect(() => {
+    // Delay before starting the countdown
+    const startId = setTimeout(() => setStartCounting(true), 300)
+    return () => clearTimeout(startId)
+  }, [])
 
   return (
     <div
@@ -50,7 +52,7 @@ export default function AdvityaCountdown({ onFinish }) {
             Advitya
           </h1>
 
-          <Year2026Display startCounting={startCounting} />
+          <Year2026Display startCounting={startCounting} onCountComplete={handleCountComplete} />
         </div>
 
 
@@ -74,11 +76,11 @@ export default function AdvityaCountdown({ onFinish }) {
   )
 }
 
-function Year2026Display({ startCounting }) {
+function Year2026Display({ startCounting, onCountComplete }) {
   const [displayNumber, setDisplayNumber] = React.useState(0);
   const colors = ['#0085C7', '#F4C300', '#DF0024', '#009F3D'];
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!startCounting) return;
 
     let current = 0;
@@ -93,13 +95,14 @@ function Year2026Display({ startCounting }) {
       if (current >= target) {
         setDisplayNumber(target);
         clearInterval(timer);
+        onCountComplete();
       } else {
         setDisplayNumber(Math.floor(current));
       }
     }, stepDuration);
 
     return () => clearInterval(timer);
-  }, [startCounting]);
+  }, [startCounting, onCountComplete]);
 
   const digits = displayNumber.toString().padStart(4, '0').split('');
 
