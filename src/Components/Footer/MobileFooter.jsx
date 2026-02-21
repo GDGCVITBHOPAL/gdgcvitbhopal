@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-// import footerCloud from "@/assets/footer_cloud_img.svg";
 import {
     Accordion,
     AccordionContent,

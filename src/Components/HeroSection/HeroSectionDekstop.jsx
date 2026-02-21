@@ -18,13 +18,12 @@ export default function HeroSectionDesktop() {
     <section
       aria-label="Desktop hero"
       className="relative w-full min-h-[calc(80vh-4rem)] overflow-x-hidden bg-white text-black"
-      
+
     >
 
       {/* Decorative elements */}
       <motion.img
-      // src="/olympicsImages/dinosaur-trex.gif"
-      className="pointer-events-none absolute left-[2%] top-[6%] w-20 lg:w-20 xl:w-20S opacity-90"
+        className="pointer-events-none absolute left-[2%] top-[6%] w-20 lg:w-20 xl:w-20S opacity-90"
       />
       <motion.img
         src={cloudLeft}
@@ -125,16 +124,16 @@ export default function HeroSectionDesktop() {
         }}
       />
       <motion.div
-      animate={{y:[-1,0]}}
-      transition={{
-        duration:5,
-        ease:"easeIn",
-        delay:5
-      }}
-      className="fixed z-[999] top-14 w-[9vw] right-[10vh]">
+        animate={{y:[-1,0]}}
+        transition={{
+          duration:5,
+          ease:"easeIn",
+          delay:5
+        }}
+        className="fixed z-[999] top-14 w-[9vw] right-[10vh]">
         <a href="/advitya">
           <img src="/olympicsImages/flag.png" alt="flag" />
-          </a>
+        </a>
       </motion.div>
 
 
@@ -160,7 +159,7 @@ export default function HeroSectionDesktop() {
                 gdgc<span className="text-[#ff2d55]">.</span>
               </span>
               <div>
-              {/* <FlipWords 
+                {/* <FlipWords 
               words = {["GDGC", "Devs", "Creators", "Innovators"]}
               className="text-4xl lg:text-5xl xl:text-6xl font-black text-black"/>
               <span className="text-[#ff2d55] text-4xl lg:text-5xl xl:text-6xl font-extrabold">.</span> */}
@@ -172,7 +171,7 @@ export default function HeroSectionDesktop() {
         <div className="flex flex-row w-full bottom-0 mx-auto relative">
           {/* location */}
           <div className="flex flex-col pt-[50vh] w-[10vw] h-full">
-            
+
             <a
               href="https://www.google.com/maps/search/?api=1&query=23.076944,76.851111"
               target="_blank"
@@ -189,13 +188,13 @@ export default function HeroSectionDesktop() {
             </a>
           </div>
 
-            {/* Building Illustration */}
+          {/* Building Illustration */}
           <div>
-            
-          <img
-            src={VitVectorImage}
-            alt="VIT Bhopal Illustration"
-            className="
+
+            <img
+              src={VitVectorImage}
+              alt="VIT Bhopal Illustration"
+              className="
                 pointer-events-none
                 w-[80vw]
                 max-h-[75vh]
@@ -203,7 +202,7 @@ export default function HeroSectionDesktop() {
                 xl:w-[80vw]
                 2xl:w-[80vw]
               "
-          />
+            />
           </div>
 
           {/* GDGC Logo  */}
