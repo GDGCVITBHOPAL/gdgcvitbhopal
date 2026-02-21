@@ -5,7 +5,7 @@ import gsap from "gsap";
 import * as gameIcons from "@/Advitya26Components/assets/gamesIcons/gameIcons";
 
 // ADD GAME IDs HERE TO REVEAL: e.g. [1, 2, 3]
-const REVEALED_GAME_IDS = [];
+const REVEALED_GAME_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const games = [
     {
