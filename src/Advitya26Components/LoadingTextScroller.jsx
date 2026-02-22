@@ -13,7 +13,7 @@ export default function LoadingTextScroller({
                         key={index}
                         className="inline-block text-[clamp(4rem,12vw,12rem)] font-black uppercase bg-linear-to-r from-[#068da8] via-[#5119b3] to-[#fbbf24] bg-size-[200%_auto] bg-clip-text text-transparent"
                         style={{
-                            fontFamily: "Cascadia Code",
+                            fontFamily: "Fugaz One, cursive",
                         }}
 
                     >
