@@ -6,7 +6,7 @@ export default function LoadingTextScroller({
     const textCopies = Array(repeatCount).fill(text);
 
     return (
-        <div className="h-full flex items-center overflow-visible w-auto min-w-max md:w-[300vw] md:min-w-[300vw] md:mr-[15vw]">
+        <div className="h-full flex items-center overflow-visible w-[200vw] min-w-[200vw] md:w-[300vw] md:min-w-[300vw] md:mr-[15vw]">
             <div className="flex items-center whitespace-nowrap gap-16 px-8">
                 {textCopies.map((t, index) => (
                     <span
@@ -15,6 +15,7 @@ export default function LoadingTextScroller({
                         style={{
                             fontFamily: "Fugaz One, cursive",
                         }}
+
                     >
                         {t}
                     </span>

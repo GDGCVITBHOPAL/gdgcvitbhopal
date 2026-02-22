@@ -82,21 +82,15 @@ export default function CardMainSection({
             const lastCardEl = cardRefs.current[childArray.length - 1];
             if (!lastCardEl) return;
 
-            // Ensure all cards are at full scale for accurate measurement
-            cardRefs.current.forEach((card) => {
-                if (card) gsap.set(card, { scale: 1 });
-            });
+            // Calculate how far to scroll horizontally to CENTER the last card
+            const lastCardRect = lastCardEl.getBoundingClientRect();
+            const trackRect = track.getBoundingClientRect();
+            const viewportCenter = window.innerWidth / 2;
 
-            // Force layout recalculation
-            track.offsetHeight;
-
-            // Use offsetLeft/offsetWidth instead of getBoundingClientRect
-            // These are layout-based and don't depend on scroll position or timing
-            const lastCardCenterInTrack =
-                lastCardEl.offsetLeft + lastCardEl.offsetWidth / 2;
+            // Position of last card center relative to track start
+            const lastCardCenterInTrack = (lastCardRect.left - trackRect.left) + (lastCardRect.width / 2);
 
             // Scroll needed to bring last card center to viewport center
-            const viewportCenter = window.innerWidth / 2;
             const scrollToCenter = lastCardCenterInTrack - viewportCenter;
             const scrollWidth = Math.max(0, scrollToCenter);
 
